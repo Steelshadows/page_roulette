@@ -1,0 +1,129 @@
+<?php
+    require_once('php/class/DB_class.php');
+    $db_connection = new db_connection();
+
+    $urls_db = $db_connection->fetchAllQuery("SELECT * FROM `pages` WHERE 1");
+?>
+<!DOCTYPE html>
+<html lang="en" class="manager">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page roulette</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="js/dataFunctions.js"></script>
+    <script src="js/pageFunctions.js"></script>
+    <script src="js/managerFunctions.js"></script>
+    <div class="container bg-white">
+        <div class="row">
+            <div class="row col-12 action_buttons">
+                <button class="col-2 m-2" onclick="newFramePage()">new frame</button>
+            </div>
+            <div class="col-6">
+                <div class="all_urls">
+                    <?php
+                        foreach($urls_db as $item){
+                    ?>
+                        <div class="row p-3">                          
+                            
+                            <div class="row">
+                                <label class="col-3">id:</label>
+                                <label id="id-<?=$item["id"]?>"class="col-9"><?=$item["id"]?></label>
+                            </div>
+                                
+                            <div class="row">
+                                <label class="col-3">url:</label>
+                                <label id="url-<?=$item["id"]?>"class="col-9"><?=$item["url"]?></label>
+                            </div>
+                                
+                            <div class="row">
+                                <label class="col-3">duration:</label>
+                                <label id="duration-<?=$item["id"]?>"class="col-9"><?=$item["duration"]?></label>
+                            </div>
+                                
+                            <div class="row">
+                                <label class="col-3">pageInfo:</label>
+                                <label id="pageInfo-<?=$item["id"]?>"class="col-9"><?=$item["pageInfo"]?></label>
+                            </div>
+                                
+                            <div class="row">
+                                <label class="col-3">date:</label>
+                                <label id="date-<?=$item["id"]?>"class="col-9"><?=$item["date"]?></label>
+                            </div>
+                            <div class="row">
+                                <label class="col-3">status:</label>
+                                <label id="status-<?=$item["id"]?>"class="col-9"><?=$item["status"]?></label>
+                            </div>
+                            <div class="row">
+                                <button class="col-3 m-2" onclick="editFramePage(<?=$item['id']?>)">edit</button>
+
+                                <?php if($item["status"] == 'active'){?>
+                                    <button class="col-3 m-2"onclick="hideFramePage(<?=$item['id']?>)">hide</button>
+                                <?php }else{?>
+                                    <button class="col-3 m-2"onclick="showFramePage(<?=$item['id']?>)">show</button>
+                                <?php }?>
+                                <button class="col-3 m-2" onclick="previewFramePage(<?=$item['id']?>)">preview</button>
+                            </div>
+                        </div>
+                        <?php
+                        }
+                        ?>
+
+</div>
+            </div>
+            <div class="col-6">
+                <div class="url_editor p-3 d-none">
+                    <div class="row p-1">
+                        <label class="col-3">id:</label>
+                        <label id="edit_id"class="col-9"></label>
+                    </div>
+                    
+                    <div class="row p-1">
+                        <label class="col-3">url:</label>
+                        <input type="text" id="edit_url"class="col-9"></input>
+                    </div>
+                        
+                    <div class="row p-1">
+                        <label class="col-3">duration:</label>
+                        <input type="number" id="edit_duration"class="col-9"></input>
+                    </div>
+                    
+                    <div class="row p-1">
+                        <label class="col-3">pageInfo:</label>
+                        <textarea id="edit_pageInfo"class="col-9"></textarea>
+                    </div>
+                        
+                    <div class="row p-1">
+                        <label class="col-3">date:</label>
+                        <label id="edit_date" class="col-9"></label>
+                    </div>
+                    <div class="row p-1">
+                        <label class="col-3">status:</label>
+                        <div id="edit_status" class="row col-9">
+                            <div class="row align-items-center">
+                                <input id="status_radio_active" type="radio" class="col-1" name="status" value="active">
+                                <label class="col-11">active</label>
+                            </div>
+                            <div class="row align-items-center">
+                                <input id="status_radio_hidden" type="radio" class="col-1" name="status" value="hidden">
+                                <label class="col-11">hidden</label>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row p-1">
+                        <button class="col-3 m-2" onclick="submitEditFramePage()">submit</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -2,27 +2,10 @@
     require_once('php/class/DB_class.php');
     $db_connection = new db_connection();
 
-    $urls_db = $db_connection->fetchAllQuery("SELECT * FROM `pages` WHERE 1");
-    
-    $urls = [
-        [
-            "url"=>"https://www.bing.com/images/search?q=waterfalls",
-            "duration"=>10000,
-            "pageInfo"=>"watervallen"
-        ],
-        [
-            "url"=>"https://www.bing.com/videos/search?q=Home",
-            "duration"=>10000,
-            "pageInfo"=>"house"
-        ],
-        [
-            "url"=>"https://www.bing.com/videos/search?q=DIY%20Crafts",
-            "duration"=>10000
-        ],
-    ]
+    $urls_db = $db_connection->fetchAllQuery("SELECT `url`,`duration`,`pageInfo` FROM `pages` WHERE `status` = 'active'");
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="roulette">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
