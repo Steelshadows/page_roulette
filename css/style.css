@@ -25,3 +25,8 @@ html.manager {overflow: visible}
     background-color:rgba(0,0,0,0.5);
     color:white;
 }
+.preview_box , .preview_frame{
+    width: 100%;
+    height:100vh;
+    overflow:hidden;
+}

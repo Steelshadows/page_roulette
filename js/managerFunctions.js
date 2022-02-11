@@ -1,7 +1,9 @@
+var edits;
 function editFramePage(id){
     console.log(id);
     $(".url_editor").removeClass("d-none");
-    
+    $(".preview_box").addClass("d-none");
+
     $id = $("#id-"+id).html();
     $url = $("#url-"+id).html();
     $duration = $("#duration-"+id).html();
@@ -10,9 +12,9 @@ function editFramePage(id){
     $status = $("#status-"+id).html();
 
     $("#edit_id").html($id);
-    $("#edit_url").attr("value",$url);
-    $("#edit_duration").attr("value",$duration);
-    $("#edit_pageInfo").text($pageInfo);
+    $("#edit_url").val($url);
+    $("#edit_duration").val($duration);
+    $("#edit_pageInfo").val($pageInfo);
     $("#edit_date").html($date);
 
     if($status == "active"){
@@ -24,27 +26,39 @@ function editFramePage(id){
 function submitEditFramePage(){
     edits = {
         'id': $("#edit_id").html(),
-        'url': $("#edit_url").attr("value"),
-        'duration': $("#edit_duration").attr("value"),
-        'pageInfo': $("#edit_pageInfo").text(),
-        'status': (($("#status_radio_active").prop("checked",true))?"active":"hidden")
+        'url': $("#edit_url").val(),
+        'duration': $("#edit_duration").val(),
+        'pageInfo': $("#edit_pageInfo").val(),
+        'status': (($("#status_radio_active").prop("checked"))?"active":"hidden")
     }
     console.log(edits);
+    doRequest("php/action.php?action=submitPage",edits,(res)=>{
+        $data = JSON.parse(res);
+        console.log($data)
+
+
+        $("#url-"+edits["id"]).html(edits["url"]);
+        $("#duration-"+edits["id"]).html(edits["duration"]);
+        $("#pageInfo-"+edits["id"]).html(edits["pageInfo"]);
+        $("#status-"+edits["id"]).html(edits["status"]);
+
+        // $("#edit_id").html($data["id"]);
+        // $("#edit_url").val($data["url"]);
+        // $("#edit_duration").val($data["duration"]);
+        // $("#edit_pageInfo").val($data["pageInfo"]);
+    })
 }
 function newFramePage(){
+    $(".preview_box").addClass("d-none");
     $(".url_editor").removeClass("d-none");
     $("#edit_id").html("new");
-    $("#edit_url").attr("value","");
-    $("#edit_duration").attr("value","");
-    $("#edit_pageInfo").text("");
+    $("#edit_url").val("");
+    $("#edit_duration").val("");
+    $("#edit_pageInfo").val("");
     $("#edit_date").html("");
 }
-function hideFramePage(id){
-    console.log(id);
-}
-function showFramePage(id){
-    console.log(id);
-}
 function previewFramePage(id){
-    console.log(id);
+    $(".url_editor").addClass("d-none");
+    $(".preview_box").removeClass("d-none");
+    $("#preview_frame").attr('src',$("#url-"+id).html());    
 }

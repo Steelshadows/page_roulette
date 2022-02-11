@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page roulette</title>
+    <title>Page roulette Manager</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="css/style.css" rel="stylesheet">
 </head>
@@ -62,12 +62,6 @@
                             </div>
                             <div class="row">
                                 <button class="col-3 m-2" onclick="editFramePage(<?=$item['id']?>)">edit</button>
-
-                                <?php if($item["status"] == 'active'){?>
-                                    <button class="col-3 m-2"onclick="hideFramePage(<?=$item['id']?>)">hide</button>
-                                <?php }else{?>
-                                    <button class="col-3 m-2"onclick="showFramePage(<?=$item['id']?>)">show</button>
-                                <?php }?>
                                 <button class="col-3 m-2" onclick="previewFramePage(<?=$item['id']?>)">preview</button>
                             </div>
                         </div>
@@ -121,6 +115,9 @@
                         <button class="col-3 m-2" onclick="submitEditFramePage()">submit</button>
                         
                     </div>
+                </div>
+                <div class="preview_box p-3 d-none">
+                    <iframe scrolling="no" id="preview_frame" class="preview_frame" frameborder="0">
                 </div>
             </div>
         </div>
