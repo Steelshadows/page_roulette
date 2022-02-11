@@ -65,9 +65,9 @@
                                 <button class="col-3 m-2" onclick="previewFramePage(<?=$item['id']?>)">preview</button>
                             </div>
                         </div>
-                        <?php
+                    <?php
                         }
-                        ?>
+                    ?>
 
 </div>
             </div>

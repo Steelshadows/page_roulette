@@ -35,7 +35,7 @@ function submitEditFramePage(){
     doRequest("php/action.php?action=submitPage",edits,(res)=>{
         $data = JSON.parse(res);
         console.log($data)
-
+        $(".all_urls").html($(".all_urls").html()+$data["html"])
 
         $("#url-"+edits["id"]).html(edits["url"]);
         $("#duration-"+edits["id"]).html(edits["duration"]);
