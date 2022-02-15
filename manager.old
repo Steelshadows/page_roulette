@@ -1,5 +1,5 @@
 <?php
-    require_once('php/class/DB_class.php');
+    require_once('php/../.php/class/DB_class.php');
     $db_connection = new db_connection();
 
     $urls_db = $db_connection->fetchAllQuery("SELECT * FROM `pages` WHERE 1");
@@ -69,7 +69,7 @@
                         }
                     ?>
 
-</div>
+                </div>
             </div>
             <div class="col-6">
                 <div class="url_editor p-3 d-none">

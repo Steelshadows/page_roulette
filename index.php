@@ -1,5 +1,5 @@
 <?php
-    require_once('php/class/DB_class.php');
+    require_once('../.php/class/DB_class.php');
     $db_connection = new db_connection();
 
     $urls_db = $db_connection->fetchAllQuery("SELECT `url`,`duration`,`pageInfo` FROM `pages` WHERE `status` = 'active'");

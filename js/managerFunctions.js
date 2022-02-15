@@ -32,7 +32,7 @@ function submitEditFramePage(){
         'status': (($("#status_radio_active").prop("checked"))?"active":"hidden")
     }
     console.log(edits);
-    doRequest("php/action.php?action=submitPage",edits,(res)=>{
+    doRequest("../.php/action.php?action=submitPage",edits,(res)=>{
         $data = JSON.parse(res);
         console.log($data)
         $(".all_urls").html($(".all_urls").html()+$data["html"])
